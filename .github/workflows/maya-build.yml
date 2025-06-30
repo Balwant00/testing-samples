@@ -1,0 +1,31 @@
+name: Build The REAL Maya
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 7.4.2
+
+    - name: Execute Gradle build
+      run: ./gradlew -p BasicSample assembleRelease
+
+    - name: Upload Maya APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: Maya-Real-APK
+        path: BasicSample/app/build/outputs/apk/release/app-release.apk
