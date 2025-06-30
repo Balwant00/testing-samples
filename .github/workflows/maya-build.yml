@@ -21,8 +21,11 @@ jobs:
       with:
         gradle-version: 7.4.2
 
+    - name: Grant execute permission for gradlew
+      run: chmod +x BasicSample/gradlew # Isko bhi theek kar dete hain
+
     - name: Execute Gradle build
-      run: ./gradlew -p BasicSample assembleRelease
+      run: ./BasicSample/gradlew -p BasicSample assembleRelease # YAHAN HAI ASLI BADLAV
 
     - name: Upload Maya APK
       uses: actions/upload-artifact@v4
